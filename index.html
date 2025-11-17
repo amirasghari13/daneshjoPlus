@@ -33,141 +33,63 @@
             color: var(--text-color);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             overflow-x: hidden;
             position: relative;
             transition: background 0.5s ease, color 0.5s ease;
-            padding: 20px;
+            padding: 0;
+        }
+
+        .mobile-container {
+            width: 100%;
+            min-height: 100vh;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 10px 0;
+            margin-bottom: 10px;
         }
 
         .date-display {
-            position: absolute;
-            top: 20px;
-            right: 20px;
             text-align: right;
-            z-index: 100;
         }
 
         .persian-date {
-            font-size: 1.2rem;
+            font-size: 0.85rem;
             color: var(--text-color);
             font-weight: 300;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
         }
 
         .time-display {
-            position: absolute;
-            top: 20px;
-            left: 20px;
             text-align: left;
-            z-index: 100;
         }
 
         .digital-clock {
-            font-size: 1.2rem;
+            font-size: 0.85rem;
             color: var(--text-color);
             font-weight: 300;
-            letter-spacing: 1px;
             font-variant-numeric: tabular-nums;
         }
 
-        .share-container {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            z-index: 100;
-        }
-
-        .share-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            font-size: 0.9rem;
-            font-family: inherit;
-        }
-
-        .share-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .share-options {
-            position: absolute;
-            bottom: 70px;
-            left: 0;
-            background: rgba(30, 30, 46, 0.9);
-            border-radius: 15px;
-            padding: 15px;
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            z-index: 101;
-        }
-
-        .share-options.show {
-            display: flex;
-        }
-
-        .share-option {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 15px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .share-option:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .share-option i {
-            font-size: 1.2rem;
-        }
-
-        .whatsapp {
-            color: #25D366;
-        }
-
-        .telegram {
-            color: #0088cc;
-        }
-
-        .instagram {
-            color: #E4405F;
-        }
-
-        .countdown-container {
+        .title-section {
             text-align: center;
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 800px;
-            padding: 20px;
+            margin: 10px 0 20px;
         }
 
         .header-title {
-            font-size: 3rem;
+            font-size: 1.8rem;
             font-weight: 800;
-            margin-bottom: 30px;
             background: linear-gradient(135deg, #a8edea, #4cc9f0, #7209b7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 30px rgba(168, 237, 234, 0.5);
-            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(168, 237, 234, 0.5);
             position: relative;
             display: inline-block;
         }
@@ -175,148 +97,90 @@
         .header-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -5px;
             left: 0;
             width: 100%;
-            height: 3px;
+            height: 2px;
             background: linear-gradient(90deg, transparent, #a8edea, transparent);
-            border-radius: 3px;
+            border-radius: 2px;
+        }
+
+        .countdown-section {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            margin-bottom: 15px;
         }
 
         .countdown-grid {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 1.5rem;
-            padding: 2.5rem;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            border: 1px solid var(--card-border);
-            box-shadow: 
-                0 25px 45px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: visible;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            margin-bottom: 30px;
-            width: 100%;
-            min-height: 180px;
-        }
-
-        .countdown-grid:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 
-                0 35px 60px rgba(0, 0, 0, 0.7),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            background: rgba(40, 40, 60, 0.8);
         }
 
         .time-unit {
-            position: relative;
-            transition: transform 0.3s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             flex: 1;
-            min-width: 70px;
-        }
-
-        .countdown-grid:hover .time-unit {
-            transform: translateY(-2px);
         }
 
         .time-value {
-            font-size: 3rem;
+            font-size: 1.5rem;
             font-weight: 300;
             background: linear-gradient(135deg, #fff 0%, #a8edea 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 30px rgba(168, 237, 234, 0.5);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
             font-variant-numeric: tabular-nums;
             line-height: 1;
-            transition: all 0.3s ease;
             text-align: center;
-            min-height: 60px;
+            min-height: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .countdown-grid:hover .time-value {
-            text-shadow: 0 0 40px rgba(168, 237, 234, 0.8);
         }
 
         .time-label {
-            font-size: 0.9rem;
+            font-size: 0.65rem;
             color: rgba(255, 255, 255, 0.7);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             font-weight: 300;
-            transition: all 0.3s ease;
-        }
-
-        .countdown-grid:hover .time-label {
-            color: rgba(255, 255, 255, 0.9);
         }
 
         .separator {
-            font-size: 2rem;
+            font-size: 1.2rem;
             color: rgba(255, 255, 255, 0.3);
             align-self: center;
-            margin-top: -1rem;
+            margin-top: -0.5rem;
             font-weight: 100;
-            transition: all 0.3s ease;
         }
 
-        .countdown-grid:hover .separator {
-            color: rgba(255, 255, 255, 0.5);
+        .info-section {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
         }
 
-        .typing-container {
-            position: relative;
-            width: 100%;
-            text-align: center;
+        .days-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             margin: 15px 0;
         }
 
-        .typing-text {
-            font-size: 1.2rem;
-            color: var(--text-color);
-            white-space: nowrap;
-            overflow: hidden;
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
-
-        .typing-text.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .typing-text.typing {
-            border-right: 2px solid #a8edea;
-            animation: blink 0.7s infinite;
-        }
-
-        .days-circle-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 20px auto;
-            width: 100%;
-        }
-
         .days-circle {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -324,10 +188,10 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
+            margin-bottom: 10px;
         }
 
         .days-circle::before {
@@ -337,64 +201,71 @@
             height: 100%;
             background: radial-gradient(circle at 30% 30%, rgba(168, 237, 234, 0.2) 0%, transparent 70%);
             border-radius: 50%;
-            animation: pulse 3s infinite alternate;
-        }
-
-        .days-circle:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
         }
 
         .days-value {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: #a8edea;
             line-height: 1;
-            text-shadow: 0 0 20px rgba(168, 237, 234, 0.7);
+            text-shadow: 0 0 15px rgba(168, 237, 234, 0.7);
             z-index: 2;
             position: relative;
         }
 
-        .days-circle::after {
-            content: '';
-            position: absolute;
-            width: 90%;
-            height: 90%;
-            border-radius: 50%;
-            border: 2px solid rgba(168, 237, 234, 0.3);
-            animation: rotate 10s linear infinite;
+        .days-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding: 15px 0 10px;
+        }
+
+        .share-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-size: 0.8rem;
+            font-family: inherit;
+        }
+
+        .designer-signature {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.7rem;
+            text-align: center;
         }
 
         .theme-controls {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            z-index: 100;
             display: flex;
-            gap: 8px;
+            gap: 6px;
             background: rgba(30, 30, 46, 0.8);
-            padding: 8px;
-            border-radius: 12px;
+            padding: 6px;
+            border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .theme-btn {
-            width: 25px;
-            height: 25px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             border: 2px solid rgba(255, 255, 255, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .theme-btn:hover {
-            transform: scale(1.1);
-            border-color: rgba(255, 255, 255, 0.7);
-        }
-
         .theme-btn.active {
             border-color: white;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
         }
 
         .theme-black {
@@ -413,72 +284,64 @@
             background: #1e2a3a;
         }
 
-        .designer-signature {
+        .share-options {
             position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.8rem;
-            text-align: center;
-            width: 100%;
-        }
-
-        .term-year-container {
+            bottom: 60px;
+            left: 15px;
+            background: rgba(30, 30, 46, 0.95);
+            border-radius: 12px;
+            padding: 12px;
             display: none;
-            justify-content: center;
+            flex-direction: column;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 101;
+        }
+
+        .share-options.show {
+            display: flex;
+        }
+
+        .share-option {
+            display: flex;
             align-items: center;
-            gap: 10px;
-            margin: 15px 0;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .share-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .share-option i {
             font-size: 1rem;
-            color: rgba(255, 255, 255, 0.7);
         }
 
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
+        .whatsapp {
+            color: #25D366;
         }
 
-        @keyframes blink {
-            0%, 50% { border-color: #a8edea; }
-            51%, 100% { border-color: transparent; }
+        .telegram {
+            color: #0088cc;
         }
 
-        @keyframes glow {
-            0%, 100% { 
-                text-shadow: 0 0 20px rgba(168, 237, 234, 0.5),
-                           0 0 40px rgba(168, 237, 234, 0.3),
-                           0 0 60px rgba(168, 237, 234, 0.1);
-            }
-            50% { 
-                text-shadow: 0 0 30px rgba(168, 237, 234, 0.8),
-                           0 0 60px rgba(168, 237, 234, 0.5),
-                           0 0 90px rgba(168, 237, 234, 0.2);
-            }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.5; }
-            100% { transform: scale(1.1); opacity: 0.8; }
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .time-value {
-            animation: glow 3s ease-in-out infinite;
+        .instagram {
+            color: #E4405F;
         }
 
         .particles-container {
-            position: absolute;
+            position: fixed;
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
-            z-index: 1;
+            z-index: -1;
+            pointer-events: none;
         }
 
         .particle {
@@ -488,192 +351,35 @@
             pointer-events: none;
         }
 
-        .pulse-ring {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: pulse-ring 4s ease-out infinite;
-        }
-
-        .countdown-grid:hover ~ .pulse-ring {
-            animation-duration: 2s;
-            border-color: rgba(168, 237, 234, 0.3);
-        }
-
-        @keyframes pulse-ring {
-            0% {
-                transform: translate(-50%, -50%) scale(0.8);
-                opacity: 1;
+        /* انیمیشن‌ها */
+        @keyframes glow {
+            0%, 100% { 
+                text-shadow: 0 0 10px rgba(168, 237, 234, 0.5),
+                           0 0 20px rgba(168, 237, 234, 0.3);
             }
-            100% {
-                transform: translate(-50%, -50%) scale(1.5);
-                opacity: 0;
+            50% { 
+                text-shadow: 0 0 15px rgba(168, 237, 234, 0.8),
+                           0 0 30px rgba(168, 237, 234, 0.5);
             }
         }
 
-        .glow-effect {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(168, 237, 234, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
+        .time-value {
+            animation: glow 3s ease-in-out infinite;
         }
 
-        .countdown-grid:hover ~ .glow-effect {
-            opacity: 1;
-        }
-
-        /* رسپانسیو برای موبایل و تبلت */
-        @media (max-width: 768px) {
-            body {
-                padding: 15px;
-                min-height: 100vh;
-                overflow-x: hidden;
-                align-items: flex-start;
-                padding-top: 80px;
-            }
-            
-            .date-display {
-                top: 15px;
-                right: 15px;
-            }
-
-            .time-display {
-                top: 15px;
-                left: 15px;
-            }
-            
-            .header-title {
-                font-size: 2.2rem;
-                margin-bottom: 20px;
-                margin-top: 20px;
-            }
-            
-            .countdown-grid {
-                gap: 0.5rem;
-                padding: 1.2rem;
-                margin-bottom: 20px;
-                min-height: 120px;
-            }
-            
-            .time-value {
-                font-size: 1.8rem;
-                min-height: 45px;
-            }
-            
-            .time-label {
-                font-size: 0.7rem;
-                letter-spacing: 0.5px;
-            }
-            
-            .separator {
-                font-size: 1.2rem;
-                margin-top: -0.5rem;
-            }
-            
-            .typing-text {
-                font-size: 1rem;
-            }
-            
-            .share-container {
-                left: 15px;
-                bottom: 15px;
-            }
-
-            .theme-controls {
-                right: 15px;
-                bottom: 15px;
-            }
-
-            .designer-signature {
-                bottom: 60px;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            .persian-date, .digital-clock {
-                font-size: 0.9rem;
-            }
-
-            .days-circle {
-                width: 100px;
-                height: 100px;
-                margin: 10px auto;
-            }
-            
-            .days-value {
-                font-size: 1.8rem;
-            }
-            
-            .term-year-container {
-                display: flex;
-            }
-            
-            .typing-container {
-                display: none;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .countdown-grid {
-                gap: 0.4rem;
-                padding: 1rem;
-            }
-            
-            .time-unit {
-                min-width: 50px;
-            }
-            
-            .time-value {
-                font-size: 1.5rem;
-                min-height: 40px;
-            }
-            
-            .time-label {
-                font-size: 0.65rem;
-            }
-            
-            .separator {
-                font-size: 1rem;
-            }
-            
-            .header-title {
-                font-size: 1.8rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
+        /* رسپانسیو برای موبایل‌های کوچک‌تر */
+        @media (max-width: 360px) {
+            .mobile-container {
                 padding: 10px;
-                padding-top: 70px;
             }
             
             .header-title {
                 font-size: 1.6rem;
-                margin-bottom: 15px;
-            }
-            
-            .countdown-grid {
-                gap: 0.3rem;
-                padding: 0.8rem;
-                margin-bottom: 15px;
-                min-height: 100px;
             }
             
             .time-value {
                 font-size: 1.3rem;
-                min-height: 35px;
+                min-height: 30px;
             }
             
             .time-label {
@@ -681,216 +387,143 @@
             }
             
             .separator {
-                font-size: 0.9rem;
-                display: none;
+                font-size: 1rem;
             }
-
-            .designer-signature {
-                bottom: 50px;
-                font-size: 0.7rem;
-            }
-
+            
             .days-circle {
-                width: 90px;
-                height: 90px;
+                width: 100px;
+                height: 100px;
             }
             
             .days-value {
                 font-size: 1.5rem;
             }
             
-            .share-btn {
-                padding: 8px 16px;
-                font-size: 0.8rem;
-            }
-            
-            .theme-btn {
-                width: 20px;
-                height: 20px;
-            }
-            
-            .term-year-container {
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .header-title {
-                font-size: 1.4rem;
-            }
-            
-            .countdown-grid {
-                gap: 0.2rem;
-                padding: 0.6rem;
-            }
-            
-            .time-value {
-                font-size: 1.2rem;
-            }
-            
-            .time-label {
-                font-size: 0.55rem;
-            }
-            
-            .days-circle {
-                width: 80px;
-                height: 80px;
-            }
-            
-            .days-value {
-                font-size: 1.3rem;
-            }
-            
-            .term-year-container {
+            .info-section {
                 font-size: 0.8rem;
             }
         }
 
-        /* بهبود نمایش در حالت عمودی موبایل */
-        @media (max-height: 700px) and (max-width: 480px) {
-            body {
-                padding: 10px 5px;
-                padding-top: 60px;
+        @media (max-height: 700px) {
+            .title-section {
+                margin: 5px 0 15px;
             }
             
-            .countdown-container {
-                padding: 10px;
+            .countdown-section {
+                margin-bottom: 10px;
+                padding: 12px;
             }
             
-            .header-title {
-                margin-bottom: 15px;
-                font-size: 1.4rem;
-            }
-            
-            .countdown-grid {
-                margin-bottom: 15px;
-                padding: 0.8rem;
-                min-height: 90px;
-            }
-            
-            .days-circle {
-                width: 70px;
-                height: 70px;
-                margin: 10px auto;
-            }
-            
-            .days-value {
-                font-size: 1.2rem;
-            }
-            
-            .designer-signature {
-                bottom: 40px;
+            .days-section {
+                margin: 10px 0;
             }
         }
     </style>
 </head>
 <body class="dark-theme">
     <div class="particles-container" id="particlesContainer"></div>
-    <div class="glow-effect"></div>
-    <div class="pulse-ring"></div>
 
-    <div class="date-display">
-        <div class="persian-date" id="persianDate">--/--/----</div>
-    </div>
-
-    <div class="time-display">
-        <div class="digital-clock" id="digitalClock">--:--:--</div>
-    </div>
-
-    <div class="share-container">
-        <button class="share-btn" id="shareBtn">
-            ارسال به دوست
-            <span class="share-icon">⎘</span>
-        </button>
-        <div class="share-options" id="shareOptions">
-            <div class="share-option whatsapp" id="shareWhatsapp">
-                <i class="fab fa-whatsapp"></i>
-                <span>واتساپ</span>
+    <div class="mobile-container">
+        <div class="header-section">
+            <div class="date-display">
+                <div class="persian-date" id="persianDate">--/--/----</div>
             </div>
-            <div class="share-option telegram" id="shareTelegram">
-                <i class="fab fa-telegram"></i>
-                <span>تلگرام</span>
-            </div>
-            <div class="share-option instagram" id="shareInstagram">
-                <i class="fab fa-instagram"></i>
-                <span>اینستاگرام</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="theme-controls">
-        <div class="theme-btn theme-black active" data-theme="black"></div>
-        <div class="theme-btn theme-navy" data-theme="navy"></div>
-        <div class="theme-btn theme-pink" data-theme="pink"></div>
-        <div class="theme-btn theme-2026" data-theme="2026"></div>
-    </div>
-
-    <div class="designer-signature">
-        طراحی شده توسط Amir Asghari
-    </div>
-
-    <div class="countdown-container">
-        <h1 class="header-title">دانشجو پلاس</h1>
-
-        <div class="countdown-grid" id="countdownGrid">
-            <div class="time-unit">
-                <div class="time-value" id="months">۰</div>
-                <div class="time-label">ماه</div>
-            </div>
-            
-            <div class="separator">:</div>
-            
-            <div class="time-unit">
-                <div class="time-value" id="days">۰</div>
-                <div class="time-label">روز</div>
-            </div>
-            
-            <div class="separator">:</div>
-            
-            <div class="time-unit">
-                <div class="time-value" id="hours">۰</div>
-                <div class="time-label">ساعت</div>
-            </div>
-            
-            <div class="separator">:</div>
-            
-            <div class="time-unit">
-                <div class="time-value" id="minutes">۰</div>
-                <div class="time-label">دقیقه</div>
-            </div>
-            
-            <div class="separator">:</div>
-            
-            <div class="time-unit">
-                <div class="time-value" id="seconds">۰</div>
-                <div class="time-label">ثانیه</div>
+            <div class="time-display">
+                <div class="digital-clock" id="digitalClock">--:--:--</div>
             </div>
         </div>
 
-        <div class="typing-container">
-            <div class="typing-text" id="typingText"></div>
+        <div class="title-section">
+            <h1 class="header-title">دانشجو پلاس</h1>
         </div>
 
-        <div class="term-year-container">
+        <div class="countdown-section">
+            <div class="countdown-grid" id="countdownGrid">
+                <div class="time-unit">
+                    <div class="time-value" id="months">۰</div>
+                    <div class="time-label">ماه</div>
+                </div>
+                
+                <div class="separator">:</div>
+                
+                <div class="time-unit">
+                    <div class="time-value" id="days">۰</div>
+                    <div class="time-label">روز</div>
+                </div>
+                
+                <div class="separator">:</div>
+                
+                <div class="time-unit">
+                    <div class="time-value" id="hours">۰</div>
+                    <div class="time-label">ساعت</div>
+                </div>
+                
+                <div class="separator">:</div>
+                
+                <div class="time-unit">
+                    <div class="time-value" id="minutes">۰</div>
+                    <div class="time-label">دقیقه</div>
+                </div>
+                
+                <div class="separator">:</div>
+                
+                <div class="time-unit">
+                    <div class="time-value" id="seconds">۰</div>
+                    <div class="time-label">ثانیه</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
             <span>ترم</span>
             <span>|</span>
             <span>از سال</span>
         </div>
 
-        <div class="days-circle-container">
+        <div class="days-section">
             <div class="days-circle">
                 <div class="days-value" id="daysValue">۰</div>
+            </div>
+            <div class="days-label">روز تا امتحانات</div>
+        </div>
+
+        <div class="footer-section">
+            <div class="share-container">
+                <button class="share-btn" id="shareBtn">
+                    ارسال به دوست
+                </button>
+                <div class="share-options" id="shareOptions">
+                    <div class="share-option whatsapp" id="shareWhatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>واتساپ</span>
+                    </div>
+                    <div class="share-option telegram" id="shareTelegram">
+                        <i class="fab fa-telegram"></i>
+                        <span>تلگرام</span>
+                    </div>
+                    <div class="share-option instagram" id="shareInstagram">
+                        <i class="fab fa-instagram"></i>
+                        <span>اینستاگرام</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="designer-signature">
+                طراحی شده توسط Amir Asghari
+            </div>
+
+            <div class="theme-controls">
+                <div class="theme-btn theme-black active" data-theme="black"></div>
+                <div class="theme-btn theme-navy" data-theme="navy"></div>
+                <div class="theme-btn theme-pink" data-theme="pink"></div>
+                <div class="theme-btn theme-2026" data-theme="2026"></div>
             </div>
         </div>
     </div>
 
     <script>
         const targetDate = new Date(2026, 0, 10, 24, 0, 0);
-        const typingText = "زمان باقی مانده تا امتحانات پایان ترم";
-        let isTyping = false;
-        let typingAnimation = null;
-        let currentTypingIndex = 0;
-
+        
         const persianDays = ['یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه', 'شنبه'];
         const persianMonths = [
             'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
@@ -936,7 +569,7 @@
             const persianDate = toPersianDate(now);
             const dateElement = document.getElementById('persianDate');
             
-            dateElement.textContent = `امروز ${persianDays[persianDate.dayOfWeek]} ${persianDate.day} ${persianMonths[persianDate.month - 1]} ماه ${persianDate.year}`;
+            dateElement.textContent = `${persianDate.day} ${persianMonths[persianDate.month - 1]} ${persianDate.year}`;
             
             const clockElement = document.getElementById('digitalClock');
             const hours = now.getHours().toString().padStart(2, '۰');
@@ -973,30 +606,6 @@
             
             const totalDays = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
             document.getElementById('daysValue').textContent = totalDays.toLocaleString('fa-IR');
-        }
-
-        function startTyping() {
-            if (isTyping) return;
-            
-            isTyping = true;
-            currentTypingIndex = 0;
-            const element = document.getElementById('typingText');
-            
-            element.classList.add('visible');
-            element.classList.add('typing');
-            element.textContent = '';
-            
-            function typeCharacter() {
-                if (currentTypingIndex < typingText.length && isTyping) {
-                    element.textContent += typingText.charAt(currentTypingIndex);
-                    currentTypingIndex++;
-                    typingAnimation = setTimeout(typeCharacter, 80);
-                } else {
-                    element.classList.remove('typing');
-                }
-            }
-            
-            typeCharacter();
         }
 
         function setupShareButtons() {
@@ -1049,13 +658,13 @@
 
         function createParticles() {
             const container = document.getElementById('particlesContainer');
-            const particleCount = 30;
+            const particleCount = 20;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 
-                const size = Math.random() * 3 + 1;
+                const size = Math.random() * 2 + 1;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 
@@ -1065,7 +674,7 @@
                 particle.style.animation = `float ${15 + Math.random() * 20}s infinite linear`;
                 particle.style.animationDelay = `${Math.random() * 20}s`;
                 
-                particle.style.opacity = Math.random() * 0.6 + 0.1;
+                particle.style.opacity = Math.random() * 0.4 + 0.1;
                 
                 container.appendChild(particle);
             }
@@ -1116,29 +725,7 @@
             }
         }
 
-        const countdownGrid = document.getElementById('countdownGrid');
-        let hoverTimeout;
-
-        countdownGrid.addEventListener('mouseenter', function() {
-            clearTimeout(hoverTimeout);
-            startTyping();
-        });
-
-        countdownGrid.addEventListener('mouseleave', function() {
-            hoverTimeout = setTimeout(() => {
-                isTyping = false;
-                currentTypingIndex = 0;
-                if (typingAnimation) {
-                    clearTimeout(typingAnimation);
-                    typingAnimation = null;
-                }
-                const element = document.getElementById('typingText');
-                element.classList.remove('visible');
-                element.classList.remove('typing');
-                element.textContent = '';
-            }, 50);
-        });
-
+        // راه‌اندازی اولیه
         updateDateTime();
         updateCountdown();
         setInterval(updateDateTime, 1000);
@@ -1147,7 +734,7 @@
         setupThemeControls();
         setupShareButtons();
 
-        console.log('تایمر امتحانات پایان ترم - دانشجو پلاس بارگذاری شد!');
+        console.log('تایمر امتحانات پایان ترم - نسخه موبایل بارگذاری شد!');
     </script>
 </body>
 </html>
