@@ -147,6 +147,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            animation: glow 3s ease-in-out infinite;
         }
 
         .time-label {
@@ -366,10 +367,6 @@
             }
         }
 
-        .time-value {
-            animation: glow 3s ease-in-out infinite;
-        }
-
         /* رسپانسیو برای موبایل‌های کوچک‌تر */
         @media (max-width: 360px) {
             .mobile-container {
@@ -421,8 +418,73 @@
                 margin: 10px 0;
             }
         }
+
+        /* ------------- 👇 اضافه شده برای ریسپانسیو واقعی موبایل 👇 ------------- */
+
+        /* موبایل عمومی تا عرض 480px */
+        @media (max-width: 480px) {
+            .countdown-grid {
+                flex-wrap: wrap;
+                gap: 10px 0;
+            }
+
+            .time-unit {
+                flex: 0 0 30%;
+                margin-bottom: 6px;
+            }
+
+            .separator {
+                display: none;
+            }
+
+            .time-value {
+                font-size: 1.45rem;
+            }
+
+            .days-circle {
+                width: 110px;
+                height: 110px;
+            }
+
+            .header-title {
+                font-size: 1.55rem;
+            }
+        }
+
+        /* موبایل 390px (مثل iPhone 12/13/14) */
+        @media (max-width: 390px) {
+            .time-unit {
+                flex: 0 0 32%;
+            }
+            .time-value {
+                font-size: 1.35rem;
+            }
+            .days-circle {
+                width: 100px;
+                height: 100px;
+            }
+            .header-title {
+                font-size: 1.45rem;
+            }
+        }
+
+        /* موبایل خیلی کوچک (Galaxy Fold و...) */
+        @media (max-width: 330px) {
+            .time-unit {
+                flex: 0 0 48%;
+            }
+            .time-value {
+                font-size: 1.25rem;
+            }
+            .header-title {
+                font-size: 1.3rem;
+            }
+        }
+        /* ------------------------------------------------------------ */
+
     </style>
 </head>
+
 <body class="dark-theme">
     <div class="particles-container" id="particlesContainer"></div>
 
