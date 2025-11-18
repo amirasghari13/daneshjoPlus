@@ -1,1186 +1,212 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تایمر امتحانات پایان ترم | دانشجو پلاس</title>
-    <meta name="description" content="تایمر معکوس هوشمند برای امتحانات پایان ترم - دانشجو پلاس">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⏰</text></svg>">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>دانشجو پلاس</title>
 
-        :root {
-            --primary-color: #4361ee;
-            --secondary-color: #3a0ca3;
-            --accent-color: #7209b7;
-            --light-color: #f8f9fa;
-            --dark-color: #212529;
-            --success-color: #4cc9f0;
-            --warning-color: #f72585;
-            --bg-color: #0f0f23;
-            --text-color: #e0e0e0;
-            --card-bg: rgba(30, 30, 46, 0.7);
-            --card-border: rgba(255, 255, 255, 0.1);
-        }
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@200;300;400;600;700;900&display=swap');
 
         body {
-            background: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-            transition: background 0.5s ease, color 0.5s ease;
-            padding: 20px;
+            font-family: 'Vazirmatn', sans-serif;
+            margin: 0;
+            background-color: #f9f9f9;
+            overflow-x: hidden;
         }
 
-        /* استایل‌های دسکتاپ - بدون تغییر */
-        .date-display {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            text-align: right;
-            z-index: 100;
-        }
-
-        .persian-date {
-            font-size: 1.2rem;
-            color: var(--text-color);
-            font-weight: 300;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
-
-        .time-display {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            text-align: left;
-            z-index: 100;
-        }
-
-        .digital-clock {
-            font-size: 1.2rem;
-            color: var(--text-color);
-            font-weight: 300;
-            letter-spacing: 1px;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .share-container {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            z-index: 100;
-        }
-
-        .share-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        header {
+            background: linear-gradient(135deg, #4CAF50, #2196F3);
             color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            font-size: 0.9rem;
-            font-family: inherit;
-        }
-
-        .share-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .share-options {
-            position: absolute;
-            bottom: 70px;
-            left: 0;
-            background: rgba(30, 30, 46, 0.9);
-            border-radius: 15px;
-            padding: 15px;
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            z-index: 101;
-        }
-
-        .share-options.show {
-            display: flex;
-        }
-
-        .share-option {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 15px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .share-option:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .share-option i {
-            font-size: 1.2rem;
-        }
-
-        .whatsapp {
-            color: #25D366;
-        }
-
-        .telegram {
-            color: #0088cc;
-        }
-
-        .instagram {
-            color: #E4405F;
-        }
-
-        .countdown-container {
+            padding: 25px;
             text-align: center;
-            position: relative;
-            z-index: 10;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        .container {
             width: 100%;
-            max-width: 800px;
+            max-width: 1150px;
+            margin: auto;
             padding: 20px;
         }
 
-        .header-title {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, #a8edea, #4cc9f0, #7209b7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 30px rgba(168, 237, 234, 0.5);
-            letter-spacing: 2px;
-            position: relative;
-            display: inline-block;
+        /* ====== کارت ها ====== */
+        .tool-card {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            transition: 0.2s;
         }
 
-        .header-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #a8edea, transparent);
-            border-radius: 3px;
+        .tool-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 14px rgba(0,0,0,0.15);
         }
 
-        .countdown-grid {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 2.5rem;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            border: 1px solid var(--card-border);
-            box-shadow: 
-                0 25px 45px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: visible;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            margin-bottom: 30px;
-            width: 100%;
-            min-height: 180px;
-        }
-
-        .countdown-grid:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 
-                0 35px 60px rgba(0, 0, 0, 0.7),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            background: rgba(40, 40, 60, 0.8);
-        }
-
-        .time-unit {
-            position: relative;
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-            min-width: 70px;
-        }
-
-        .countdown-grid:hover .time-unit {
-            transform: translateY(-2px);
-        }
-
-        .time-value {
-            font-size: 3rem;
-            font-weight: 300;
-            background: linear-gradient(135deg, #fff 0%, #a8edea 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 30px rgba(168, 237, 234, 0.5);
-            margin-bottom: 0.5rem;
-            font-variant-numeric: tabular-nums;
-            line-height: 1;
-            transition: all 0.3s ease;
-            text-align: center;
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .countdown-grid:hover .time-value {
-            text-shadow: 0 0 40px rgba(168, 237, 234, 0.8);
-        }
-
-        .time-label {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 300;
-            transition: all 0.3s ease;
-        }
-
-        .countdown-grid:hover .time-label {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .separator {
-            font-size: 2rem;
-            color: rgba(255, 255, 255, 0.3);
-            align-self: center;
-            margin-top: -1rem;
-            font-weight: 100;
-            transition: all 0.3s ease;
-        }
-
-        .countdown-grid:hover .separator {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .typing-container {
-            position: relative;
-            width: 100%;
-            text-align: center;
-            margin: 15px 0;
-        }
-
-        .typing-text {
-            font-size: 1.2rem;
-            color: var(--text-color);
-            white-space: nowrap;
-            overflow: hidden;
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
-
-        .typing-text.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .typing-text.typing {
-            border-right: 2px solid #a8edea;
-            animation: blink 0.7s infinite;
-        }
-
-        .days-circle-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 20px auto;
-            width: 100%;
-        }
-
-        .days-circle {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .days-circle::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 30% 30%, rgba(168, 237, 234, 0.2) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: pulse 3s infinite alternate;
-        }
-
-        .days-circle:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-        }
-
-        .days-value {
-            font-size: 2.5rem;
+        .tool-title {
+            font-size: 20px;
             font-weight: 700;
-            color: #a8edea;
-            line-height: 1;
-            text-shadow: 0 0 20px rgba(168, 237, 234, 0.7);
-            z-index: 2;
-            position: relative;
+            margin-bottom: 12px;
+            color: #333;
         }
 
-        .days-circle::after {
-            content: '';
-            position: absolute;
-            width: 90%;
-            height: 90%;
-            border-radius: 50%;
-            border: 2px solid rgba(168, 237, 234, 0.3);
-            animation: rotate 10s linear infinite;
+        .tool-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
         }
 
-        .theme-controls {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            z-index: 100;
-            display: flex;
-            gap: 8px;
-            background: rgba(30, 30, 46, 0.8);
-            padding: 8px;
+        /* ====== فرم ====== */
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        button {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 14px;
+            width: 100%;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .theme-btn {
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            font-size: 16px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: 0.2s;
         }
 
-        .theme-btn:hover {
-            transform: scale(1.1);
-            border-color: rgba(255, 255, 255, 0.7);
+        button:hover {
+            opacity: 0.85;
         }
 
-        .theme-btn.active {
-            border-color: white;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        /* ===== Grid — نسخه دسکتاپ بدون تغییر ===== */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
         }
 
-        .theme-black {
-            background: #0f0f23;
-        }
-
-        .theme-navy {
-            background: #1a1a2e;
-        }
-
-        .theme-pink {
-            background: #2d1b2e;
-        }
-
-        .theme-2026 {
-            background: #1e2a3a;
-        }
-
-        .designer-signature {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.8rem;
-            text-align: center;
-            width: 100%;
-        }
-
-        .term-year-container {
-            display: none;
-        }
-
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        @keyframes blink {
-            0%, 50% { border-color: #a8edea; }
-            51%, 100% { border-color: transparent; }
-        }
-
-        @keyframes glow {
-            0%, 100% { 
-                text-shadow: 0 0 20px rgba(168, 237, 234, 0.5),
-                           0 0 40px rgba(168, 237, 234, 0.3),
-                           0 0 60px rgba(168, 237, 234, 0.1);
-            }
-            50% { 
-                text-shadow: 0 0 30px rgba(168, 237, 234, 0.8),
-                           0 0 60px rgba(168, 237, 234, 0.5),
-                           0 0 90px rgba(168, 237, 234, 0.2);
+        /* ===== نسخه موبایل — کامل اصلاح شده ===== */
+        @media (max-width: 850px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
             }
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.5; }
-            100% { transform: scale(1.1); opacity: 0.8; }
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .time-value {
-            animation: glow 3s ease-in-out infinite;
-        }
-
-        .particles-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-
-        .particle {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .pulse-ring {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: pulse-ring 4s ease-out infinite;
-        }
-
-        .countdown-grid:hover ~ .pulse-ring {
-            animation-duration: 2s;
-            border-color: rgba(168, 237, 234, 0.3);
-        }
-
-        @keyframes pulse-ring {
-            0% {
-                transform: translate(-50%, -50%) scale(0.8);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(1.5);
-                opacity: 0;
-            }
-        }
-
-        .glow-effect {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(168, 237, 234, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-        }
-
-        .countdown-grid:hover ~ .glow-effect {
-            opacity: 1;
-        }
-
-        /* 📱 نسخه موبایل - کاملاً جدید و جدا */
-        @media only screen and (max-width: 768px) {
-            body {
-                height: auto;
-                min-height: 100vh;
-                padding: 10px;
-                overflow-y: auto;
-                display: block;
+        @media (max-width: 600px) {
+            header {
+                font-size: 20px;
+                padding: 18px;
             }
 
-            .mobile-layout {
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh;
-                padding: 10px;
+            .grid {
+                grid-template-columns: 1fr !important;
+                gap: 14px;
             }
 
-            .header-section {
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
-                padding: 5px 0;
-                margin-bottom: 5px;
+            .tool-card {
+                padding: 16px;
+                border-radius: 14px;
             }
 
-            .date-display {
-                position: static;
-                text-align: right;
+            .tool-title {
+                font-size: 18px;
             }
 
-            .time-display {
-                position: static;
-                text-align: left;
+            .tool-description {
+                font-size: 13px;
             }
 
-            .persian-date, .digital-clock {
-                font-size: 0.8rem;
-            }
-
-            .title-section {
-                text-align: center;
-                margin: 10px 0;
-            }
-
-            .header-title {
-                font-size: 1.5rem;
-                margin-bottom: 15px;
-            }
-
-            .header-title::after {
-                bottom: -3px;
-                height: 2px;
-            }
-
-            .countdown-section {
-                background: var(--card-bg);
-                backdrop-filter: blur(20px);
-                border-radius: 15px;
-                border: 1px solid var(--card-border);
-                padding: 15px;
-                margin-bottom: 15px;
-            }
-
-            .countdown-grid {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                gap: 5px;
-                padding: 15px;
-                min-height: 100px;
-                margin-bottom: 0;
-            }
-
-            .time-unit {
-                flex: 1;
-                min-width: auto;
-            }
-
-            .time-value {
-                font-size: 1.3rem;
-                min-height: 35px;
-                margin-bottom: 0.3rem;
-            }
-
-            .time-label {
-                font-size: 0.65rem;
-                letter-spacing: 0.5px;
-            }
-
-            .separator {
-                font-size: 1rem;
-                margin-top: -0.5rem;
-            }
-
-            .info-section {
-                display: flex;
-                justify-content: center;
-                gap: 10px;
-                margin: 10px 0;
-                font-size: 0.8rem;
-                color: rgba(255, 255, 255, 0.7);
-            }
-
-            .days-section {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                margin: 15px 0;
-            }
-
-            .days-circle {
-                width: 100px;
-                height: 100px;
-                margin-bottom: 5px;
-            }
-
-            .days-value {
-                font-size: 1.5rem;
-            }
-
-            .days-label {
-                font-size: 0.7rem;
-                color: rgba(255, 255, 255, 0.7);
-            }
-
-            .footer-section {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-top: auto;
-                padding: 10px 0;
-            }
-
-            .share-container {
-                position: static;
-            }
-
-            .share-btn {
-                padding: 6px 12px;
-                font-size: 0.7rem;
-            }
-
-            .theme-controls {
-                position: static;
-                padding: 5px;
-                gap: 5px;
-            }
-
-            .theme-btn {
-                width: 18px;
-                height: 18px;
-            }
-
-            .designer-signature {
-                position: static;
-                transform: none;
-                font-size: 0.65rem;
-                margin: 0 5px;
-            }
-
-            .typing-container {
-                display: none;
-            }
-
-            .term-year-container {
-                display: flex;
-            }
-
-            /* مخفی کردن المان‌های دسکتاپ در موبایل */
-            .countdown-container {
-                display: none;
-            }
-
-            .particles-container,
-            .glow-effect,
-            .pulse-ring {
-                display: none;
-            }
-        }
-
-        /* 📱 موبایل‌های کوچک */
-        @media only screen and (max-width: 480px) {
-            .header-title {
-                font-size: 1.3rem;
-            }
-
-            .countdown-grid {
-                padding: 10px;
-                min-height: 80px;
-                gap: 3px;
-            }
-
-            .time-value {
-                font-size: 1.1rem;
-                min-height: 30px;
-            }
-
-            .time-label {
-                font-size: 0.6rem;
-            }
-
-            .separator {
-                font-size: 0.9rem;
-            }
-
-            .days-circle {
-                width: 80px;
-                height: 80px;
-            }
-
-            .days-value {
-                font-size: 1.3rem;
-            }
-
-            .info-section {
-                font-size: 0.75rem;
-            }
-        }
-
-        /* 📱 موبایل‌های خیلی کوچک */
-        @media only screen and (max-width: 360px) {
-            .header-title {
-                font-size: 1.1rem;
-            }
-
-            .time-value {
-                font-size: 1rem;
-            }
-
-            .separator {
-                display: none;
-            }
-
-            .countdown-grid {
-                gap: 2px;
-            }
-        }
-
-        /* نمایش نسخه مناسب */
-        .desktop-version {
-            display: block;
-        }
-
-        .mobile-version {
-            display: none;
-        }
-
-        @media only screen and (max-width: 768px) {
-            .desktop-version {
-                display: none;
-            }
-            .mobile-version {
-                display: block;
+            button {
+                font-size: 15px;
+                padding: 12px;
             }
         }
     </style>
 </head>
-<body class="dark-theme">
-    <!-- نسخه دسکتاپ -->
-    <div class="desktop-version">
-        <div class="particles-container" id="particlesContainer"></div>
-        <div class="glow-effect"></div>
-        <div class="pulse-ring"></div>
 
-        <div class="date-display">
-            <div class="persian-date" id="persianDate">--/--/----</div>
+<body>
+    <header>دانشجو پلاس — نسخه نهایی</header>
+
+    <div class="container">
+
+        <div class="grid">
+
+            <!-- ابزار 1 -->
+            <div class="tool-card">
+                <div class="tool-title">ساخت تایمر مطالعه</div>
+                <div class="tool-description">زمان موردنظر را وارد کنید.</div>
+                <input type="number" id="timerInput" placeholder="دقیقه">
+                <button onclick="startTimer()">شروع تایمر</button>
+            </div>
+
+            <!-- ابزار 2 -->
+            <div class="tool-card">
+                <div class="tool-title">یادداشت سریع</div>
+                <textarea id="note" rows="4" placeholder="متن مورد نظر..."></textarea>
+                <button onclick="saveNote()">ذخیره</button>
+            </div>
+
+            <!-- ابزار 3 -->
+            <div class="tool-card">
+                <div class="tool-title">محاسبه معدل</div>
+                <textarea id="grades" rows="4" placeholder="مثال: 18, 17, 20"></textarea>
+                <button onclick="calcAVG()">محاسبه</button>
+            </div>
+
         </div>
 
-        <div class="time-display">
-            <div class="digital-clock" id="digitalClock">--:--:--</div>
-        </div>
+        <!-- نتیجه -->
+        <div id="result" style="
+            margin-top: 25px;
+            background: white;
+            padding: 18px;
+            border-radius: 14px;
+            font-size: 16px;
+            display: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        "></div>
 
-        <div class="share-container">
-            <button class="share-btn" id="shareBtn">
-                ارسال به دوست
-                <span class="share-icon">⎘</span>
-            </button>
-            <div class="share-options" id="shareOptions">
-                <div class="share-option whatsapp" id="shareWhatsapp">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>واتساپ</span>
-                </div>
-                <div class="share-option telegram" id="shareTelegram">
-                    <i class="fab fa-telegram"></i>
-                    <span>تلگرام</span>
-                </div>
-                <div class="share-option instagram" id="shareInstagram">
-                    <i class="fab fa-instagram"></i>
-                    <span>اینستاگرام</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="theme-controls">
-            <div class="theme-btn theme-black active" data-theme="black"></div>
-            <div class="theme-btn theme-navy" data-theme="navy"></div>
-            <div class="theme-btn theme-pink" data-theme="pink"></div>
-            <div class="theme-btn theme-2026" data-theme="2026"></div>
-        </div>
-
-        <div class="designer-signature">
-            طراحی شده توسط Amir Asghari
-        </div>
-
-        <div class="countdown-container">
-            <h1 class="header-title">دانشجو پلاس</h1>
-
-            <div class="countdown-grid" id="countdownGrid">
-                <div class="time-unit">
-                    <div class="time-value" id="months">۰</div>
-                    <div class="time-label">ماه</div>
-                </div>
-                
-                <div class="separator">:</div>
-                
-                <div class="time-unit">
-                    <div class="time-value" id="days">۰</div>
-                    <div class="time-label">روز</div>
-                </div>
-                
-                <div class="separator">:</div>
-                
-                <div class="time-unit">
-                    <div class="time-value" id="hours">۰</div>
-                    <div class="time-label">ساعت</div>
-                </div>
-                
-                <div class="separator">:</div>
-                
-                <div class="time-unit">
-                    <div class="time-value" id="minutes">۰</div>
-                    <div class="time-label">دقیقه</div>
-                </div>
-                
-                <div class="separator">:</div>
-                
-                <div class="time-unit">
-                    <div class="time-value" id="seconds">۰</div>
-                    <div class="time-label">ثانیه</div>
-                </div>
-            </div>
-
-            <div class="typing-container">
-                <div class="typing-text" id="typingText"></div>
-            </div>
-
-            <div class="days-circle-container">
-                <div class="days-circle">
-                    <div class="days-value" id="daysValue">۰</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- نسخه موبایل -->
-    <div class="mobile-version">
-        <div class="mobile-layout">
-            <div class="header-section">
-                <div class="date-display">
-                    <div class="persian-date" id="persianDateMobile">--/--/----</div>
-                </div>
-                <div class="time-display">
-                    <div class="digital-clock" id="digitalClockMobile">--:--:--</div>
-                </div>
-            </div>
-
-            <div class="title-section">
-                <h1 class="header-title">دانشجو پلاس</h1>
-            </div>
-
-            <div class="countdown-section">
-                <div class="countdown-grid" id="countdownGridMobile">
-                    <div class="time-unit">
-                        <div class="time-value" id="monthsMobile">۰</div>
-                        <div class="time-label">ماه</div>
-                    </div>
-                    
-                    <div class="separator">:</div>
-                    
-                    <div class="time-unit">
-                        <div class="time-value" id="daysMobile">۰</div>
-                        <div class="time-label">روز</div>
-                    </div>
-                    
-                    <div class="separator">:</div>
-                    
-                    <div class="time-unit">
-                        <div class="time-value" id="hoursMobile">۰</div>
-                        <div class="time-label">ساعت</div>
-                    </div>
-                    
-                    <div class="separator">:</div>
-                    
-                    <div class="time-unit">
-                        <div class="time-value" id="minutesMobile">۰</div>
-                        <div class="time-label">دقیقه</div>
-                    </div>
-                    
-                    <div class="separator">:</div>
-                    
-                    <div class="time-unit">
-                        <div class="time-value" id="secondsMobile">۰</div>
-                        <div class="time-label">ثانیه</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="info-section">
-                <span>ترم</span>
-                <span>|</span>
-                <span>از سال</span>
-            </div>
-
-            <div class="days-section">
-                <div class="days-circle">
-                    <div class="days-value" id="daysValueMobile">۰</div>
-                </div>
-                <div class="days-label">روز تا امتحانات</div>
-            </div>
-
-            <div class="footer-section">
-                <div class="share-container">
-                    <button class="share-btn" id="shareBtnMobile">
-                        ارسال به دوست
-                    </button>
-                    <div class="share-options" id="shareOptionsMobile">
-                        <div class="share-option whatsapp" id="shareWhatsappMobile">
-                            <i class="fab fa-whatsapp"></i>
-                            <span>واتساپ</span>
-                        </div>
-                        <div class="share-option telegram" id="shareTelegramMobile">
-                            <i class="fab fa-telegram"></i>
-                            <span>تلگرام</span>
-                        </div>
-                        <div class="share-option instagram" id="shareInstagramMobile">
-                            <i class="fab fa-instagram"></i>
-                            <span>اینستاگرام</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="designer-signature">
-                    طراحی شده توسط Amir Asghari
-                </div>
-
-                <div class="theme-controls">
-                    <div class="theme-btn theme-black active" data-theme="black"></div>
-                    <div class="theme-btn theme-navy" data-theme="navy"></div>
-                    <div class="theme-btn theme-pink" data-theme="pink"></div>
-                    <div class="theme-btn theme-2026" data-theme="2026"></div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script>
-        // کد جاوااسکریپت - برای هر دو نسخه
-        const targetDate = new Date(2026, 0, 10, 24, 0, 0);
-        const typingText = "زمان باقی مانده تا امتحانات پایان ترم";
-        let isTyping = false;
-        let typingAnimation = null;
-        let currentTypingIndex = 0;
+        function startTimer() {
+            let min = document.getElementById("timerInput").value;
+            if (!min || min <= 0) return alert("زمان معتبر وارد کنید!");
 
-        const persianDays = ['یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه', 'شنبه'];
-        const persianMonths = [
-            'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
-            'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'
-        ];
-
-        function toPersianDate(date) {
-            const gregorianDate = new Date(date);
-            const persianDate = gregorianToJalali(
-                gregorianDate.getFullYear(),
-                gregorianDate.getMonth() + 1,
-                gregorianDate.getDate()
-            );
-            
-            return {
-                year: persianDate[0],
-                month: persianDate[1],
-                day: persianDate[2],
-                dayOfWeek: gregorianDate.getDay()
-            };
+            alert("تایمر " + min + " دقیقه‌ای شروع شد!");
         }
 
-        function gregorianToJalali(gy, gm, gd) {
-            let g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-            let jy = (gy <= 1600) ? 0 : 979;
-            gy -= (gy <= 1600) ? 621 : 1600;
-            let gy2 = (gm > 2) ? (gy + 1) : gy;
-            let days = (365 * gy) + (parseInt((gy2 + 3) / 4)) - (parseInt((gy2 + 99) / 100)) 
-                + (parseInt((gy2 + 399) / 400)) - 80 + gd + g_d_m[gm - 1];
-            jy += 33 * (parseInt(days / 12053));
-            days %= 12053;
-            jy += 4 * (parseInt(days / 1461));
-            days %= 1461;
-            jy += parseInt((days - 1) / 365);
-            if (days > 365) days = (days - 1) % 365;
-            let jm = (days < 186) ? 1 + parseInt(days / 31) : 7 + parseInt((days - 186) / 30);
-            let jd = 1 + ((days < 186) ? (days % 31) : ((days - 186) % 30));
-            return [jy, jm, jd];
+        function saveNote() {
+            let txt = document.getElementById("note").value;
+            if (!txt.trim()) return alert("متن خالی است!");
+
+            localStorage.setItem("daneshjo_note", txt);
+            alert("ذخیره شد!");
         }
 
-        function updateDateTime() {
-            const now = new Date();
-            const persianDate = toPersianDate(now);
-            
-            // نسخه دسکتاپ
-            const dateElement = document.getElementById('persianDate');
-            if(dateElement) {
-                dateElement.textContent = `امروز ${persianDays[persianDate.dayOfWeek]} ${persianDate.day} ${persianMonths[persianDate.month - 1]} ماه ${persianDate.year}`;
-            }
-            
-            // نسخه موبایل
-            const dateElementMobile = document.getElementById('persianDateMobile');
-            if(dateElementMobile) {
-                dateElementMobile.textContent = `${persianDate.day} ${persianMonths[persianDate.month - 1]} ${persianDate.year}`;
-            }
-            
-            const clockElement = document.getElementById('digitalClock');
-            const clockElementMobile = document.getElementById('digitalClockMobile');
-            const hours = now.getHours().toString().padStart(2, '۰');
-            const minutes = now.getMinutes().toString().padStart(2, '۰');
-            const seconds = now.getSeconds().toString().padStart(2, '۰');
-            
-            if(clockElement) clockElement.textContent = `${hours}:${minutes}:${seconds}`;
-            if(clockElementMobile) clockElementMobile.textContent = `${hours}:${minutes}:${seconds}`;
+        function calcAVG() {
+            let grades = document.getElementById("grades").value.split(",");
+            let nums = grades.map(x => parseFloat(x.trim())).filter(x => !isNaN(x));
+
+            if (nums.length === 0) return alert("نمره معتبر وارد کنید!");
+
+            let avg = nums.reduce((a,b)=>a+b,0) / nums.length;
+
+            let box = document.getElementById("result");
+            box.style.display = "block";
+            box.innerHTML = "معدل شما: <b>" + avg.toFixed(2) + "</b>";
         }
-
-        function updateCountdown() {
-            const now = new Date();
-            const timeRemaining = targetDate - now;
-            
-            if (timeRemaining <= 0) {
-                // نسخه دسکتاپ
-                const ids = ['months', 'days', 'hours', 'minutes', 'seconds', 'daysValue'];
-                ids.forEach(id => {
-                    const el = document.getElementById(id);
-                    if(el) el.textContent = id === 'daysValue' ? '۰' : '۰۰';
-                });
-                
-                // نسخه موبایل
-                const mobileIds = ['monthsMobile', 'daysMobile', 'hoursMobile', 'minutesMobile', 'secondsMobile', 'daysValueMobile'];
-                mobileIds.forEach(id => {
-                    const el = document.getElementById(id);
-                    if(el) el.textContent = id === 'daysValueMobile' ? '۰' : '۰۰';
-                });
-                return;
-            }
-            
-            const months = Math.floor(timeRemaining / (1000 * 60 * 60 * 24 * 30));
-            const days = Math.floor((timeRemaining % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-            
-            const totalDays = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-            
-            // نسخه دسکتاپ
-            document.getElementById('months').textContent = months.toString().padStart(2, '۰');
-            document.getElementById('days').textContent = days.toString().padStart(2, '۰');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '۰');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '۰');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '۰');
-            document.getElementById('daysValue').textContent = totalDays.toLocaleString('fa-IR');
-            
-            // نسخه موبایل
-            document.getElementById('monthsMobile').textContent = months.toString().padStart(2, '۰');
-            document.getElementById('daysMobile').textContent = days.toString().padStart(2, '۰');
-            document.getElementById('hoursMobile').textContent = hours.toString().padStart(2, '۰');
-            document.getElementById('minutesMobile').textContent = minutes.toString().padStart(2, '۰');
-            document.getElementById('secondsMobile').textContent = seconds.toString().padStart(2, '۰');
-            document.getElementById('daysValueMobile').textContent = totalDays.toLocaleString('fa-IR');
-        }
-
-        // بقیه توابع (startTyping, setupShareButtons, createParticles, setupThemeControls) 
-        // مانند قبل باقی می‌مانند اما برای هر دو نسخه کار می‌کنند
-
-        function setupShareButtons() {
-            // برای دسکتاپ
-            const shareBtn = document.getElementById('shareBtn');
-            if(shareBtn) {
-                shareBtn.addEventListener('click', function() {
-                    document.getElementById('shareOptions').classList.toggle('show');
-                });
-            }
-            
-            // برای موبایل
-            const shareBtnMobile = document.getElementById('shareBtnMobile');
-            if(shareBtnMobile) {
-                shareBtnMobile.addEventListener('click', function() {
-                    document.getElementById('shareOptionsMobile').classList.toggle('show');
-                });
-            }
-            
-            // بقیه کدهای اشتراک‌گذاری...
-        }
-
-        function setupThemeControls() {
-            const themeButtons = document.querySelectorAll('.theme-btn');
-            
-            themeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const theme = this.getAttribute('data-theme');
-                    
-                    themeButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                    applyTheme(theme);
-                });
-            });
-        }
-
-        function applyTheme(theme) {
-            const root = document.documentElement;
-            
-            switch(theme) {
-                case 'black':
-                    root.style.setProperty('--bg-color', '#0f0f23');
-                    root.style.setProperty('--text-color', '#e0e0e0');
-                    root.style.setProperty('--card-bg', 'rgba(30, 30, 46, 0.7)');
-                    root.style.setProperty('--card-border', 'rgba(255, 255, 255, 0.1)');
-                    break;
-                case 'navy':
-                    root.style.setProperty('--bg-color', '#1a1a2e');
-                    root.style.setProperty('--text-color', '#e6e6e6');
-                    root.style.setProperty('--card-bg', 'rgba(40, 40, 70, 0.7)');
-                    root.style.setProperty('--card-border', 'rgba(100, 100, 200, 0.2)');
-                    break;
-                case 'pink':
-                    root.style.setProperty('--bg-color', '#2d1b2e');
-                    root.style.setProperty('--text-color', '#f0e6f0');
-                    root.style.setProperty('--card-bg', 'rgba(70, 40, 70, 0.7)');
-                    root.style.setProperty('--card-border', 'rgba(200, 100, 200, 0.2)');
-                    break;
-                case '2026':
-                    root.style.setProperty('--bg-color', '#1e2a3a');
-                    root.style.setProperty('--text-color', '#d9e6f2');
-                    root.style.setProperty('--card-bg', 'rgba(40, 60, 80, 0.7)');
-                    root.style.setProperty('--card-border', 'rgba(100, 150, 200, 0.2)');
-                    break;
-            }
-        }
-
-        // راه‌اندازی اولیه
-        updateDateTime();
-        updateCountdown();
-        setInterval(updateDateTime, 1000);
-        setInterval(updateCountdown, 1000);
-        setupThemeControls();
-        setupShareButtons();
-
-        console.log('تایمر امتحانات پایان ترم - هر دو نسخه بارگذاری شد!');
     </script>
+
 </body>
 </html>
